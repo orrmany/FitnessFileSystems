@@ -44,11 +44,11 @@ String  gpx_trk_extensions(String extensions)
     return tmp;
 }
 
-String gpx_trkpt_extensions(String ATEMP, String HR, String CAD) 
+String gpx_trkpt_extensions(String latency, String ATEMP, String HR, String CAD) 
 {
     String tmp= String("");
 
-    if (ATEMP == "" && HR == "" && CAD =="") //if all extensions are missing
+    if (ATEMP == "" && HR == "" && CAD =="" && latency == "") //if all extensions are missing
       ; //return empty 
     else //there is at least 1 extension
     {
@@ -66,19 +66,23 @@ String gpx_trkpt_extensions(String ATEMP, String HR, String CAD)
         tmp += "          <ns3:cad>"+CAD+"</ns3:cad>\n";
       else 
         tmp += "          <noCAD/>\n";
+      if ( latency!="") 
+        tmp += "          <gpslatency>"+latency+"</gpslatency>\n";
+      else 
+        tmp += "          <noGpsLatency/>\n";
       tmp += "        </ns3:TrackPointExtension>\n";
       tmp += "      </extensions>\n";
     } //there is at least 1 extension
     return tmp;
 }
 
-String   gpx_trkpt(String LAT, String LON, String ELE, String TIME, String ATEMP, String HR, String CAD) 
+String   gpx_trkpt(String latency, String LAT, String LON, String ELE, String TIME, String ATEMP, String HR, String CAD) 
 {
     String tmp= String("");
     tmp += "    <trkpt lat=\"" + LAT +"\" lon=\""+LON+"\">\n";
     tmp += "      <ele>"+ELE+"</ele>\n";
     tmp += "      <time>"+TIME+".000Z</time>\n";
-    tmp += gpx_trkpt_extensions(ATEMP, HR, CAD);
+    tmp += gpx_trkpt_extensions(latency, ATEMP, HR, CAD);
     tmp += "    </trkpt>";
     return tmp;
 }
