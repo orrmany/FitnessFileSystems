@@ -76,13 +76,14 @@ String gpx_trkpt_extensions(String latency, String ATEMP, String HR, String CAD)
     return tmp;
 }
 
-String   gpx_trkpt(String latency, String LAT, String LON, String ELE, String TIME, String ATEMP, String HR, String CAD) 
+String   gpx_trkpt(String latency, String LAT, String LON, String ELE, String TIME, String ATEMP, String HR, String CAD, String lastNMEA) 
 {
     String tmp= String("");
-    tmp += "    <trkpt lat=\"" + LAT +"\" lon=\""+LON+"\">\n";
+    tmp += "    <trkpt lon=\""+LON+"\" lat=\"" + LAT +"\">\n";
     tmp += "      <ele>"+ELE+"</ele>\n";
-    tmp += "      <time>"+TIME+".000Z</time>\n";
+    tmp += "      <time>"+TIME+"Z</time>\n";
     tmp += gpx_trkpt_extensions(latency, ATEMP, HR, CAD);
+    tmp += "      <lastNMEAfix>"+lastNMEA+"</lastNMEAfix>\n";
     tmp += "    </trkpt>";
     return tmp;
 }
